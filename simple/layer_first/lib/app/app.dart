@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:layer_first/home/home.dart';
 import 'package:layer_first/theme/theme.dart';
 
 
@@ -24,7 +25,7 @@ class AppView extends StatelessWidget {
     return MaterialApp(
       theme: LayerFirstTheme.light,
       darkTheme: LayerFirstTheme.dark,
-      home: Container(),
+      home: Home(),
     );
   }
 }
