@@ -1,6 +1,16 @@
-// TODO: Put public facing types in this file.
+import 'dart:async';
 
-/// Checks if you are awesome. Spoiler: you are.
-class Awesome {
-  bool get isAwesome => true;
+import 'package:layer_first_api/layer_first_api.dart';
+import 'package:layer_first_api/src/models/post.dart';
+
+class PostRepository {
+  PostRepository({LayerFirstApiClient? layerFirstApiClient})
+      : _layerFirstApiClient = layerFirstApiClient ?? LayerFirstApiClient();
+
+  final LayerFirstApiClient _layerFirstApiClient;
+
+  Future<List<Post>> getPosts() async {
+    final posts = await _layerFirstApiClient.getPost();
+    return posts;
+  }
 }
