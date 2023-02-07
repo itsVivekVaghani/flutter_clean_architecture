@@ -1,38 +1,43 @@
-part of 'post_cubit.dart';
-enum PostStatus { initial, loading, success, failure }
 
-extension PostStatusX on PostStatus {
-  bool get isInitial => this == PostStatus.initial;
-  bool get isLoading => this == PostStatus.loading;
-  bool get isSuccess => this == PostStatus.success;
-  bool get isFailure => this == PostStatus.failure;
+part of 'post_cubit.dart';
+
+
+
+abstract class PostState extends Equatable {}
+
+class PostInitial extends PostState {
+  @override
+  List<Object?> get props => [];
 }
 
-@JsonSerializable()
-class PostState extends Equatable {
-  PostState({
-    this.status = PostStatus.initial,
-    List<Post>? posts,
-  }) : posts = posts ?? [];
+class PostLoading extends PostState {
+  @override
+  List<Object?> get props => [];
+}
 
-  factory PostState.fromJson(Map<String, dynamic> json) =>
-      _$PostStateFromJson(json);
+class PostSuccess extends PostState {
+  PostSuccess({required this.postResponse});
 
-  final PostStatus status;
-  final List<Post> posts;
-
-  PostState copyWith({
-    PostStatus? status,
-    List<Post>? posts,
-  }) {
-    return PostState(
-      status: status ?? this.status,
-      posts: posts ?? this.posts,
-    );
-  }
-
-  Map<String, dynamic> toJson() => _$PostStateToJson(this);
+  final List<PostResponse> postResponse;
 
   @override
-  List<Object?> get props => [status, posts];
+  List<Object?> get props => [postResponse];
+}
+
+class AddPostSuccess extends PostState {
+  AddPostSuccess({required this.response});
+
+  final dynamic response;
+
+  @override
+  List<Object?> get props => [response];
+}
+
+class PostFailure extends PostState {
+  PostFailure({required this.message});
+
+  final String message;
+
+  @override
+  List<Object?> get props => [message];
 }
